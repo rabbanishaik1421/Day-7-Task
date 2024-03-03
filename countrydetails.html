@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Details</title>
+</head>
+<body>
+    <div id="table"></div>
+    <script>
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(this.readyState==4 && this.status==200){
+            const jsonData = xhr.responseText;
+            const arrData = JSON.parse(jsonData);
+            console.log(arrData)
+            var table = `<table border="1" style="border-collapse:collapse;"><tr><th style="text-align:left;">Name</th><th style="text-align:left;">Capital</th><th style="text-align:left;">Flag</th></tr>`;
+            arrData.forEach(element => {
+                table += `<tr><td>${element.name.common}</td><td>${element.capital}</td><td><img src="${element.flags.png}" width="50" /></td></tr>`;
+                console.log(element.name.common)
+                //console.log(element.capital[0])
+                //console.log(element.flag)
+                //console.log(element.flags.png)
+            });
+
+            table += `</table>`;
+
+            document.getElementById('table').innerHTML = table;
+        }
+    }
+
+    xhr.open('GET', 'https://restcountries.com/v3.1/all', true);
+        xhr.send();
+    </script>
+</body>
+</html>

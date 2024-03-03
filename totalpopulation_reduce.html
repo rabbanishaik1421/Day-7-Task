@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Population Using Reduce Function</title>
+</head>
+<body>
+    <script>
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+            if(this.readyState==4 && this.status==200){
+                let jsonData = xhr.responseText;
+                let arrData = JSON.parse(jsonData);
+                let totalPopulation = arrData.reduce((acc,val)=>val.population)
+                console.log(`Total Population: ${totalPopulation}`)
+            }
+        }
+
+        xhr.open('GET', 'https://restcountries.com/v3.1/all', true);
+        xhr.send();
+    </script>
+</body>
+</html>

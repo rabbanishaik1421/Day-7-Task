@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USD CUrre</title>
+</head>
+<body>
+    <script>
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+            if(this.readyState==4 && this.status==200){
+                let jsonData = xhr.responseText;
+                let arrData = JSON.parse(jsonData);
+                //console.log(arrData)
+                let data = arrData.filter((element, index)=>element.currencies).filter((element, index)=>element.currencies.USD)
+                console.log("List of Countries have USD currency:")
+                data.forEach(element => {
+                    console.log(`Country: ${element.name.common}`)
+                });
+                //console.log(data1)
+            }
+        }
+
+        xhr.open('GET', 'https://restcountries.com/v3.1/all', true);
+        xhr.send();
+    </script>
+</body>
+</html>

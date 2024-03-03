@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Population less than 2 lakhs</title>
+</head>
+<body>
+    <script>
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+            if(this.readyState==4 && this.status==200){
+                let jsonData = xhr.responseText;
+                let arrData = JSON.parse(jsonData);
+                let data = arrData.filter((element,index)=>element.population<200000)
+                console.log("Number of countries less than 2 Lakhs Population:"+data.length)
+                console.log("List of Countries less than 2 Lakhs Population:")
+                
+                console.log(data)
+            }
+        }
+
+        xhr.open('GET', 'https://restcountries.com/v3.1/all', true);
+        xhr.send();
+    </script>
+</body>
+</html>
